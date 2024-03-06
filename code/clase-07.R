@@ -65,18 +65,7 @@ db_2 <- filter(.data = db_2 , vs==1 & am==1)
 ## Ejemplo con dplyr
 db_3 <- mutate(.data = db , aleatorio=rnorm(nrow(db))) |> 
        select(vs,am,aleatorio) %>% 
-       filter(vs==1 & am==1)
-         
-
-
-df = as_tibble(x = women)
-
-## Otra forma de hacerlo es emplear el operador pipe `%>%`:  
-
-
-## Con `%>%` no es necesario mencionar el objeto en cada nueva transformación. Además, las líneas de código se redujeron a la mitad.
-
-### Veamos otro ejemplo:
+       filter(vs==1 & am==1)    
 
 ## Intente reescribir el siguiente código usando el operador `%>%`:
 df <- import("https://www.datos.gov.co/resource/epsv-yhtj.csv")
@@ -84,10 +73,12 @@ df <- as_tibble(df)
 df <- select(df, -cod_ase_)
 df <- mutate(df,ifelse(is.na(estrato),1,estrato))
 
+## reesvcribir en %>%
 
 ## **[2.] Combinar conjuntos de datos (adicionar filas/columnas)**
 
 ### **2.1 Agregar observaciones**
+rm(list=ls())
 
 ## Generar conjuntos de datos para hacer la aplicación:
 set.seed(0117) # Fijar semilla
@@ -102,8 +93,12 @@ obs_2 = tibble(id = 106:107 ,
 
 ## Inspeccionar los datos:
 
-
 ## Combinar el conjunto de datos (bind_rows): 
+obs <- bind_rows(obs_1,obs_2)
+
+obs_1 <- obs_1 %>% select(age,id,height)
+
+obs <- bind_rows(obs_1,obs_2)
 
 ### **2.2 Adicionar variables a un conjunto de datos**
 db_1 <- tibble(id = 102:105 , income = runif(4,1000,2000) %>% round())

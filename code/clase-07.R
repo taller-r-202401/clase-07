@@ -13,10 +13,44 @@ p_load(tidyverse, ## manipular/limpiar conjuntos de datos.
        skimr, ## skim: describir un conjunto de datos
        janitor) ##  tabyl: frecuencias relativas
 
+## selccionar columnas
+db <- as.data.frame(mtcars)
+
+##== selccionar libreria base ===## 
+
+## selecionar usando la posiscion
+db_2 <- db[,1:3]
+
+## selecionar usando la posiscion
+db_2 <- db[,c("mpg","vs")]
+
+##== selccionar libreria base ===## 
+
+## selecionar usando select
+db_2 <- select(.data = db , mpg , vs , carb)
+
+## selecionar usando select (elminar una variable)
+db_2 <- select(.data = db , -mpg)
+
+## selecionar usando select (maneter grupo variables)
+db_2 <- select(.data = db , mpg:vs)
+
+## selecionar usando select (maneter grupo variables por nombre)
+db_2 <- select(.data = db , mpg:vs)
+
+
+
+
+
 
 ## **[1.] Operador pipe (%>%)**
 
 ### Veamos un ejemplo:
+
+
+
+
+
 df = as_tibble(x = women)
 
 ## Otra forma de hacerlo es emplear el operador pipe `%>%`:  

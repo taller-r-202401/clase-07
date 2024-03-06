@@ -13,6 +13,9 @@ p_load(tidyverse, ## manipular/limpiar conjuntos de datos.
        skimr, ## skim: describir un conjunto de datos
        janitor) ##  tabyl: frecuencias relativas
 
+starts_with <- dplyr::starts_with
+select <- dplyr::select
+
 ## selccionar columnas
 db <- as.data.frame(mtcars)
 
@@ -36,19 +39,34 @@ db_2 <- select(.data = db , -mpg)
 db_2 <- select(.data = db , mpg:vs)
 
 ## selecionar usando select (maneter grupo variables por nombre)
-db_2 <- select(.data = db , mpg:vs)
+db_2 <- select(db,-starts_with("c"))
 
+db_2 <- select(db,ends_with("t"))
 
+db_2 <- select(db,contains("e"))
 
+###== selccionar observaciones ===## 
 
+## una condicion
+tabyl(db$vs)
+db_2 <- dplyr::filter(.data = db , vs==1)
 
+## por dos condicion
+tabyl(db$am)
+db_2 <- filter(.data = db , vs==1 & am==1)
 
 ## **[1.] Operador pipe (%>%)**
 
 ### Veamos un ejemplo:
+db_2 <- mutate(.data = db , aleatorio=rnorm(nrow(db)))
+db_2 <- select(.data = db_2 , vs , am , aleatorio)
+db_2 <- filter(.data = db_2 , vs==1 & am==1)
 
-
-
+## Ejemplo con dplyr
+db_3 <- mutate(.data = db , aleatorio=rnorm(nrow(db))) |> 
+       select(vs,am,aleatorio) %>% 
+       filter(vs==1 & am==1)
+         
 
 
 df = as_tibble(x = women)
